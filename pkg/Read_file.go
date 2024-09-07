@@ -41,6 +41,8 @@ func ReadFile() Colony {
 	}
 
 	isRoom := false
+	isLink := false
+	isLastRoom := false
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 
@@ -50,9 +52,12 @@ func ReadFile() Colony {
 			isRoom = true
 		case "##end":
 			isRoom = false
-			if scanner.Scan() { // Capture the first line after ##end
-				colony.Rooms = append(colony.Rooms, strings.Split(scanner.Text(), " ")[0])
+			if scanner.Scan() && (scanner.Text())[0] != '#' { // Capture the first line after ##end
+				colony.Rooms = append(colony.Rooms, strings.Split(scanner.Text(), " ")[0]) // Capture the room name
+
 			}
+			isLastRoom = true
+
 		default:
 			// Skip comments and empty lines
 			if line == "" || line[0] == '#' {
@@ -61,7 +66,16 @@ func ReadFile() Colony {
 			// Capture room names or links
 			if isRoom {
 				colony.Rooms = append(colony.Rooms, strings.Split(line, " ")[0])
-			} else {
+			}
+			if isLastRoom {
+				isLastRoom = false
+				isLink = true
+				colony.Rooms = append(colony.Rooms, strings.Split(line, " ")[0])
+				continue
+
+			}
+
+			if isLink {
 				colony.Links = append(colony.Links, line)
 			}
 		}
