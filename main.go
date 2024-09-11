@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"lem-in/pkg"
 	"log"
 	"os"
@@ -12,7 +11,8 @@ func main() {
 		log.Fatal("YOU NEED TO PASS ONLY A FILENAME")
 	}
 	Colony := pkg.ReadFile()
+	//fmt.Print(Colony)
 
-	fmt.Print(Colony)
+	pkg.Edmonds_Karp(Colony.Rooms, Colony.Links)
 
 }

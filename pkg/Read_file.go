@@ -54,9 +54,11 @@ func ReadFile() Colony {
 			isRoom = false
 			if scanner.Scan() && (scanner.Text())[0] != '#' { // Capture the first line after ##end
 				colony.Rooms = append(colony.Rooms, strings.Split(scanner.Text(), " ")[0]) // Capture the room name
+				isLink = true
 
+			} else if (scanner.Text())[0] == '#' {
+				isLastRoom = true
 			}
-			isLastRoom = true
 
 		default:
 			// Skip comments and empty lines
