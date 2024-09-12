@@ -7,7 +7,7 @@ import (
 )
 
 // Find all valid paths using DFS
-func Edmonds_Karp(rooms []string, links []string) {
+func Edmonds_Karp(rooms []string, links []string)[][]string{
 	graph := make(map[string][]string)
 
 	for _, link := range links {
@@ -37,6 +37,7 @@ func Edmonds_Karp(rooms []string, links []string) {
 	for i, path := range All_Paths {
 		fmt.Printf("Path %d: %v\n", i+1, path)
 	}
+	return All_Paths
 }
 
 func DSF(graph map[string][]string, start string, target string) [][]string {
