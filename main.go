@@ -38,7 +38,7 @@ func main() {
 	}
 
 	for i, a := range antArry {
-		if i > len(All_Paths)-1 {
+		if len(a) == 0 {
 			break
 		}
 		fmt.Println("the ants", a, "will go down path", All_Paths[i])
