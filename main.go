@@ -18,6 +18,8 @@ func main() {
 	}
 	Colony := pkg.ReadFile()
 
+	fmt.Println(Colony)
+
 	All_Paths := pkg.Edmonds_Karp(Colony.Rooms, Colony.Links)
 
 	//fmt.Println(All_Paths)

@@ -33,55 +33,41 @@ func ReadFile() Colony {
 	if scanner.Scan() {
 		antNum, err := strconv.Atoi(scanner.Text())
 		if err != nil || antNum <= 0 {
-			log.Fatal("Invalid number of ants in the file")
+			log.Fatal("ERROR: invalid data format,Invalid number of ants in the file")
 		}
 		colony.AntNum = antNum
 	} else {
-		log.Fatal("No data found in the file")
+		log.Fatal("ERROR: invalid data format, No data found in the file")
 	}
 
-	isRoom := false
-	isLink := false
-	isLastRoom := false
+	isEnd := false
+	var target string
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 
-		// Check for the start and end of the room section
-		switch line {
-		case "##start":
-			isRoom = true
-		case "##end":
-			isRoom = false
-			if scanner.Scan() && (scanner.Text())[0] != '#' { // Capture the first line after ##end
-				colony.Rooms = append(colony.Rooms, strings.Split(scanner.Text(), " ")[0]) // Capture the room name
-				isLink = true
-
-			} else if (scanner.Text())[0] == '#' {
-				isLastRoom = true
-			}
-
-		default:
-			// Skip comments and empty lines
-			if line == "" || line[0] == '#' {
-				continue
-			}
-			// Capture room names or links
-			if isRoom {
-				colony.Rooms = append(colony.Rooms, strings.Split(line, " ")[0])
-			}
-			if isLastRoom {
-				isLastRoom = false
-				isLink = true
-				colony.Rooms = append(colony.Rooms, strings.Split(line, " ")[0])
-				continue
-
-			}
-
-			if isLink {
-				colony.Links = append(colony.Links, line)
-			}
+		if line == "##end" {
+			isEnd = true
 		}
+
+		if (line == "##end" || line == "##start") || (len(line) > 0 && (line[0] == '#' || line[0] == 'L')) || len(line) == 0 {
+			continue
+		}
+
+		if isEnd {
+			isEnd = false
+			target = strings.Split(line, " ")[0]
+			continue
+		}
+
+		if strings.Contains(line, "-") {
+
+			colony.Links = append(colony.Links, line)
+		} else {
+			colony.Rooms = append(colony.Rooms, strings.Split(line, " ")[0])
+		}
+
 	}
+	colony.Rooms = append(colony.Rooms, target)
 
 	if err := scanner.Err(); err != nil {
 		log.Fatalf("Error reading file: %v", err)
