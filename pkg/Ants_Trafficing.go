@@ -6,7 +6,7 @@ type Ants_Path struct {
 	Ants  [][]int
 	Paths [][]string
 }
-
+//Ants_Traffic Traffics Ants to the correct routes
 func Ants_Traffic(Num_Ants int, All_Paths [][]string) Ants_Path {
 	var antsPath Ants_Path
 
