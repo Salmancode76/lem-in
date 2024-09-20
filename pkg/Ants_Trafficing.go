@@ -1,12 +1,15 @@
 package pkg
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type Ants_Path struct {
 	Ants  [][]int
 	Paths [][]string
 }
-//Ants_Traffic Traffics Ants to the correct routes
+
 func Ants_Traffic(Num_Ants int, All_Paths [][]string) Ants_Path {
 	var antsPath Ants_Path
 
@@ -32,17 +35,47 @@ func Ants_Traffic(Num_Ants int, All_Paths [][]string) Ants_Path {
 			}
 		}
 	}
-
+	antQ := 0
 	// Loop to collect paths and visited rooms
 	for i, a := range antArry {
 		if len(a) == 0 {
 			continue
 		}
-
+		antQ++
+		All_Paths[i] = All_Paths[i][1:]
 		fmt.Println("The ants", a, "will go down path", All_Paths[i])
 
 		antsPath.Ants = append(antsPath.Ants, a)
 		antsPath.Paths = append(antsPath.Paths, All_Paths[i])
+
+	}
+
+	outPath := []string{}
+	for m := len(All_Paths[0]) + len(antArry[0])*2; m > 0; m-- {
+		outPath = append(outPath, " ")
+	}
+	for z := 0; z < len(antArry); z++ {
+		w := 0
+		line := 0
+		for i := 0; i <= len(All_Paths[z]); i++ {
+
+			for j := 0; j <= w; j++ {
+				if i-j < len(All_Paths[z]) {
+					outPath[line] = outPath[line] + " L" + strconv.Itoa(antArry[z][j]) + "-" + All_Paths[z][i-j]
+				}
+
+			}
+			if w < len(antArry[z])-1 {
+				w++
+			}
+
+			line++
+		}
+	}
+	for i := 0; len(outPath) > i; i++ {
+		if outPath[i] != " " {
+			fmt.Println(outPath[i])
+		}
 	}
 	return antsPath
 }

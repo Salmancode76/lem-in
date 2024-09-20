@@ -27,8 +27,8 @@ func main() {
 
 	fmt.Println(All_Paths)
 
-	AntsPaths := pkg.Ants_Traffic(Colony.AntNum, All_Paths)
+	pkg.Ants_Traffic(Colony.AntNum, All_Paths)
 
-	fmt.Println(AntsPaths)
+	//fmt.Println(AntsPaths)
 
 }

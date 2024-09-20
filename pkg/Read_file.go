@@ -41,6 +41,8 @@ func ReadFile() Colony {
 	}
 
 	isEnd := false
+	isStart := false
+	var spawn string
 	var target string
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
@@ -48,14 +50,22 @@ func ReadFile() Colony {
 		if line == "##end" {
 			isEnd = true
 		}
+		if line == "##start" {
+			isStart = true
+		}
 
-		if (line == "##end" || line == "##start") || (len(line) > 0 && (line[0] == '#' || line[0] == 'L')) || len(line) == 0 {
+		if (len(line) > 0 && (line[0] == '#' || line[0] == 'L')) || len(line) == 0 {
 			continue
 		}
 
 		if isEnd {
 			isEnd = false
 			target = strings.Split(line, " ")[0]
+			continue
+		}
+		if isStart {
+			isStart = false
+			spawn = strings.Split(line, " ")[0]
 			continue
 		}
 
@@ -66,6 +76,9 @@ func ReadFile() Colony {
 			colony.Rooms = append(colony.Rooms, strings.Split(line, " ")[0])
 		}
 
+	}
+	if spawn != "" {
+		colony.Rooms = append([]string{spawn}, colony.Rooms...) // Prepend spawn
 	}
 	colony.Rooms = append(colony.Rooms, target)
 
