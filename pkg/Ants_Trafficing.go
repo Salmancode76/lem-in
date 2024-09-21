@@ -57,7 +57,7 @@ func Ants_Traffic(Num_Ants int, All_Paths [][]string) Ants_Path {
 	for z := 0; z < len(antArry); z++ {
 		w := 0
 		line := 0
-		for i := 0; i <= len(All_Paths[z]); i++ {
+		for i := 0; i <= len(All_Paths[z])+w; i++ {
 
 			for j := 0; j <= w; j++ {
 				if i-j < len(All_Paths[z]) {
@@ -67,6 +67,7 @@ func Ants_Traffic(Num_Ants int, All_Paths [][]string) Ants_Path {
 			}
 			if w < len(antArry[z])-1 {
 				w++
+				//println(w)
 			}
 
 			line++
@@ -74,7 +75,7 @@ func Ants_Traffic(Num_Ants int, All_Paths [][]string) Ants_Path {
 	}
 	for i := 0; len(outPath) > i; i++ {
 		if outPath[i] != "" {
-			fmt.Println(outPath[i])
+			fmt.Println(outPath[i][1:])
 		}
 	}
 	return antsPath
