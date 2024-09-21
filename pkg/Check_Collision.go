@@ -30,5 +30,17 @@ func RedundantPaths(All_Paths [][]string) [][]string {
 		All_Paths_New = append(All_Paths_New, path)
 	}
 
+	/*
+		MARKED FOR POTENTIAL CHANGE
+	*/
+
+	for _, Path := range All_Paths {
+		if len(Path) == 2 {
+			All_Paths_New = [][]string{}
+			All_Paths_New = append(All_Paths_New, Path)
+			return All_Paths_New
+		}
+	}
+
 	return All_Paths_New
 }

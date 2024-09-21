@@ -33,15 +33,19 @@ func ReadFile() Colony {
 	if scanner.Scan() {
 		antNum, err := strconv.Atoi(scanner.Text())
 		if err != nil || antNum <= 0 {
-			log.Fatal("ERROR: invalid data format,Invalid number of ants in the file")
+			log.Fatal("ERROR: invalid data format, Invalid number of ants in the file")
 		}
 		colony.AntNum = antNum
+		if colony.AntNum > 10000{
+			log.Fatal("ERROR: invalid data format, YOUR ANT NUMBER IS TOO LARGE")
+		}
 	} else {
 		log.Fatal("ERROR: invalid data format, No data found in the file")
 	}
 
 	isEnd := false
 	isStart := false
+	count_points := 0
 	var spawn string
 	var target string
 	for scanner.Scan() {
@@ -49,9 +53,11 @@ func ReadFile() Colony {
 
 		if line == "##end" {
 			isEnd = true
+			count_points++
 		}
 		if line == "##start" {
 			isStart = true
+			count_points++
 		}
 
 		if (len(line) > 0 && (line[0] == '#' || line[0] == 'L')) || len(line) == 0 {
@@ -79,8 +85,20 @@ func ReadFile() Colony {
 	}
 	if spawn != "" {
 		colony.Rooms = append([]string{spawn}, colony.Rooms...) // Prepend spawn
+	} else {
+		log.Fatal("ERROR: invalid data format, no start room found")
 	}
-	colony.Rooms = append(colony.Rooms, target)
+
+	if target != "" {
+		colony.Rooms = append(colony.Rooms, target)
+
+	} else {
+		log.Fatal("ERROR: invalid data format, no end room found")
+	}
+
+	if count_points != 2 {
+		log.Fatal("ERROR: invalid data format, THE FILE MUST CONTAIN ONLY ONE START POINT AND ONE END POINT")
+	}
 
 	if err := scanner.Err(); err != nil {
 		log.Fatalf("Error reading file: %v", err)
