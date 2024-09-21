@@ -10,7 +10,7 @@ type Ants_Path struct {
 	Paths [][]string
 }
 
-func Ants_Traffic(Num_Ants int, All_Paths [][]string) {
+func Ants_Traffic(Num_Ants int, All_Paths [][]string) Ants_Path {
 	var antsPath Ants_Path
 
 	antArry := make([][]int, len(All_Paths))
@@ -77,5 +77,5 @@ func Ants_Traffic(Num_Ants int, All_Paths [][]string) {
 			fmt.Println(outPath[i])
 		}
 	}
-	//return antsPath
+	return antsPath
 }
