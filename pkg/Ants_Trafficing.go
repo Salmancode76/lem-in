@@ -60,7 +60,7 @@ func Ants_Traffic(Num_Ants int, All_Paths [][]string) {
 		for i := 0; i <= len(All_Paths[z])+w; i++ {
 
 			for j := 0; j <= w; j++ {
-				if i-j < len(All_Paths[z]) {
+				if i-j < len(All_Paths[z]) && (len(antArry[z]) > 0) {
 					outPath[line] = outPath[line] + " L" + strconv.Itoa(antArry[z][j]) + "-" + All_Paths[z][i-j]
 				}
 
