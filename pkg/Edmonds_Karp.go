@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"fmt"
 	"sort"
 	"strings"
 )
@@ -12,17 +11,21 @@ func Edmonds_Karp(rooms []string, links []string) [][]string {
 
 	for _, link := range links {
 		line := strings.Split(link, "-")
-		fmt.Print(line)
 		u := line[0]
 		v := line[1]
 
 		graph[u] = append(graph[u], v)
 		graph[v] = append(graph[v], u)
 	}
+	/*
 
-	for room, connections := range graph {
-		fmt.Println(room, connections)
-	}
+		USED TO PRINT ALL THE ROOMS CONNECTIONS
+
+		for room, connections := range graph {
+			fmt.Println(room, connections)
+		}
+
+	*/
 
 	start := rooms[0]
 
@@ -34,11 +37,13 @@ func Edmonds_Karp(rooms []string, links []string) [][]string {
 		return len(All_Paths[i]) < len(All_Paths[j])
 	})
 
-	// Print sorted paths
+	/*
+		USED TO PRINT ALL PATHS
 
-	for i, path := range All_Paths {
-		fmt.Printf("Path %d: %v\n", i+1, path)
-	}
+		for i, path := range All_Paths {
+			fmt.Printf("Path %d: %v\n", i+1, path)
+		}
+	*/
 
 	return All_Paths
 }

@@ -43,8 +43,11 @@ func Ants_Traffic(Num_Ants int, All_Paths [][]string) {
 		}
 		antQ++
 		All_Paths[i] = All_Paths[i][1:]
-		fmt.Println("The ants", a, "will go down path", All_Paths[i])
+		/*
+			USED TO SHOW GROUP ANTS DIRECTIONS
+			fmt.Println("The ants", a, "will go down path", All_Paths[i])
 
+		*/
 		antsPath.Ants = append(antsPath.Ants, a)
 		antsPath.Paths = append(antsPath.Paths, All_Paths[i])
 

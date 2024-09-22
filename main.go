@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"lem-in/pkg"
 	"log"
 	"os"
@@ -18,19 +17,13 @@ func main() {
 	}
 	Colony := pkg.ReadFile()
 
-	fmt.Println(Colony)
-
 	All_Paths := pkg.Edmonds_Karp(Colony.Rooms, Colony.Links)
-
-	//fmt.Println(All_Paths)
 
 	All_Paths = (pkg.RedundantPaths(All_Paths))
 
 	if len(All_Paths) <= 0 {
 		log.Fatal("ERROR: invalid data format, PATHS ARE INVALID")
 	}
-
-	fmt.Println(All_Paths)
 
 	pkg.Ants_Traffic(Colony.AntNum, All_Paths)
 
