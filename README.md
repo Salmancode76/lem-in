@@ -1,1 +1,3 @@
 # lem-in
+
+The lem-in project involves creating a Go program that reads a file describing an ant colony (rooms and tunnels) and simulates the movement of ants from the ##start to the ##end room using the quickest path with the fewest moves. The input includes the number of ants, room definitions (name and coordinates), and tunnels connecting the rooms. The output shows the file contents and the ants' movements, with each ant moving once per turn. The goal is efficient pathfinding while avoiding traffic jams, with proper error handling for invalid inputs. Use files 0.txt to 5.txt as examples, or test with t.txt or your own custom .txt file. Run the program with go run . 0.txt or go run . t.txt for custom input.
